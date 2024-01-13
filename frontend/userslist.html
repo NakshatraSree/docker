@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>User List</title>
+  <style>
+    body {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>All Users</h1>
+  <div id="userList"></div>
+</body>
+
+</html>
+<!-- ... existing HTML content ... -->
+
+<script>
+    async function getAllUsers() {
+      try {
+        const response = await fetch('http://localhost:3000/users');
+        const users = await response.json();
+  
+        // Display users on the HTML page
+        const userListElement = document.getElementById('userList');
+        userListElement.innerHTML = '<h2>Highly Confedential</h2>';
+        users.forEach(user => {
+          userListElement.innerHTML += `<p>ID: ${user.id}, Email: ${user.email}, Name: ${user.name}</p>`;
+        });
+      } catch (error) {
+        console.error('Error occurred:', error);
+      }
+    }
+  
+    window.onload = getAllUsers;
+  </script>
+  

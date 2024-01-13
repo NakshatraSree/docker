@@ -1,0 +1,27 @@
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Naksh@123  # Set your desired root password
+      MYSQL_DATABASE: cloud  # Set your desired database name
+      MYSQL_USER: db_user  # Set your desired database username
+      MYSQL_PASSWORD: db_password  # Set your desired database password
+    ports:
+      - "3306:3306"  # Map container port to host port
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"  # Map container port to host port
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Map container port to host port
+    depends_on:
+      - mysql
+
+
